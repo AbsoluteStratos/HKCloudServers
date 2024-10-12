@@ -104,14 +104,14 @@ docker stop hkmp
 
 Test things are working, start up a Hollowknight game with HKMP installed:
 
-- When launched, use the chat key (default is `t`) and `/connect <external-ip>:2222 stratos` or you can press esc and use the UI.
+- When launched, use the chat key (default is `t`) and `/connect <external-ip>:2222 <Your user name>` or you can press esc and use the UI.
 - This should connect you to the server and a name should appear over your head.
 - In your docker console, it should should show something like:
     ```bash
-    [INFO] Received login request from 'stratos'
-    [INFO] Received login request from IP: <IP Address>, username: stratos
+    [INFO] Received login request from '<Your user name>'
+    [INFO] Received login request from IP: <IP Address>, username: <Your user name>
     [INFO]   Client tries to connect with following addons:
-    [INFO] Received HelloServer data from (0, stratos)
+    [INFO] Received HelloServer data from (0, <Your user name>)
     ```
 
 ## Building

@@ -13,7 +13,7 @@ Taking Hollow Knight to cloud compute.
 - [Google Cloud Platform](gcp)
 
 > [!TIP]
-> If you do not want to use the CSPs listed or want to host these servers on your own stack check out the server containers below!
+> If you do not want to use the CSPs listed or want to host these servers on your own stack, check out the server containers below!
 
 ## Supported Servers
 

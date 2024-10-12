@@ -46,7 +46,7 @@ resource "google_compute_instance" "hollow_knight_vm" {
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall
 resource "google_compute_firewall" "default" {
   name = "hollowknight-server-port-forward"
-  # https://console.cloud.google.com/networking/networks/list?project=stratos-game-servers
+  # https://console.cloud.google.com/networking/networks/list
   network  = "default"
   priority = 2000
 
