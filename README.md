@@ -5,12 +5,15 @@
 Taking Hollow Knight to cloud compute.
 
 > [!CAUTION]
-> Cloud compute cost real world money. Many platforms offer free trials with plenty of credits for weekends of free fun. However, sloppy administration of compute resources can and will lead to real world charges. Thar be dragons.
+> Cloud compute costs real world money. Many platforms offer free trials with plenty of credits for weekends of free fun. However, sloppy administration of compute resources can and will lead to real world charges. Thar be dragons.
 
 
 ## Supported CSPs
 
 - [Google Cloud Platform](gcp)
+
+> [!TIP]
+> If you do not want to use the CSPs listed or want to host these servers on your own stack check out the server containers below!
 
 ## Supported Servers
 
@@ -36,6 +39,7 @@ But some advantages that could be of interest include:
 - Do not need to mess with your router for port forwarding
 - No need for third party programs to create some LAN network
 - Host is not cloud platform, which is secure and reliable
+- Play with as many people as you want
 - Hosting a HK server in the cloud for a weekend will at most cost few dollars. No extended subscription model, use it when you need it.
 
 ## Support
