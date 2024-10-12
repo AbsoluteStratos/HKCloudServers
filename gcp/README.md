@@ -103,9 +103,9 @@ For authentication, we will use our personal account since we are running terraf
 
 #### Create VM and Firewall Rules
 
-1. Navigate to the [terraform folder](terraform) and initize terraform state with `terraform init -var credential_file=<path to credential json> -var project=<YOUR PROJECT NAME>`
+1. Navigate to the [terraform folder](terraform) and initize terraform state with `terraform init`
 2. Validate the terraform configs with `terraform plan`
-3. Apply terraform config using `terraform apply`
+3. Apply terraform config using `terraform apply  -var credential_file=<path to credential json> -var project=<YOUR PROJECT NAME>`
 
 
 ## Connecting with SSH
