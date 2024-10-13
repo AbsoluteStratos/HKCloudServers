@@ -38,9 +38,9 @@ But some advantages that could be of interest include:
 - Do not need to give other's access to your personal network / IP
 - Do not need to mess with your router for port forwarding
 - No need for third party programs to create some LAN network
-- Host is not cloud platform, which is secure and reliable
+- Server host is now cloud platform, which is secure and reliable
 - Play with as many people as you want
-- Hosting a HK server in the cloud for a weekend will at most cost few dollars. No extended subscription model, use it when you need it.
+- Hosting a HK server in the cloud for a weekend will at most cost few dollars. No extended subscription model, use it when you need it
 
 ## Support
 
