@@ -2,7 +2,14 @@
 variable "project" {
   type        = string
   description = "Name of the GCP project to use"
-  default     = "stratos-game-servers"
+  default     = "default-project"
+  sensitive   = true
+}
+
+variable "username" {
+  type        = string
+  description = "Google account user name"
+  default     = "root"
   sensitive   = true
 }
 

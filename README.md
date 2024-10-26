@@ -5,7 +5,8 @@
 Taking Hollow Knight to cloud compute.
 
 > [!CAUTION]
-> Cloud compute costs real world money. Many platforms offer free trials with plenty of credits for weekends of free fun. However, sloppy administration of compute resources can and will lead to real world charges. Thar be dragons.
+> Cloud compute costs real world money. The tutorials here try to use free tiers that can essentially be ran 24/7 at no cost.
+> However, sloppy administration of compute resources can and will lead to real world charges. Thar be dragons.
 
 
 ## Supported CSPs

@@ -1,11 +1,13 @@
 # Google Cloud Platform (GCP)
 
 The following instructions only detail how to set up a Ubuntu VM on GCP.
-This is not necessarily the most cost effective method, google cloud functions could offer a more cost effective solution but VMs are a little more flexible.
+Compared to other potential options, a VM offers a stateful compute solution with a lower cost.
+Cloud run function are not good for stateful continuous networking, K8 is more expensive and offers no continuous free offering.
+Based on analysis at the time, a micro VM appears to be the best solution for HK Server hosting.
 
 > [!CAUTION]
-> Using the suggested instances here, running HK Servers in a VM for a full weekend (48 hours) will cost a 1-2 USD at most at time of writing.
-> The suggested configuration uses the cheapest hardware. See [pricing details](https://cloud.google.com/compute/all-pricing) for more information.
+> The suggested instances (lowest compute), is part of the [free tier](https://cloud.google.com/free/docs/free-cloud-features#free-tier-usage-limits) of google cloud at time of writing.
+> Always confirm and see [pricing details](https://cloud.google.com/compute/all-pricing) for more information.
 
 > [!NOTE]
 > The commands here are linux centric. Personally I am using WSL2 on windows, adjust accordingly for other OS.
@@ -52,10 +54,12 @@ Terraform is the suggested method if you are looking for reproducability.
         - Ephemeral IP is fine, we'll connect to whatever via the domain
         - Select `standard` network teir. Either select an existing or reserve a static IP like `hollowknight-server`
         - Under Network tags add `hk-server`
+    - Advanced
+        - Add startup script with the contents of `install_docker.sh`
 
     > If it is planned to connect a domain to this IP it may be beneficial to reserve a [static IP](https://console.cloud.google.com/networking/addresses/list) that can be used between VMs. DNS records take a while to update so having a fixed IP for GoDaddy to point to is useful. However, be aware that Google [charges more](https://cloud.google.com/vpc/network-pricing#ipaddress) for IPs that are static but not in use.
 
-2. Next create a firewall exceptions for both HKMP and HKMW.
+3. Next create a firewall exceptions for both HKMP and HKMW.
 Assuming that the default ports are being used, forward `2222` and `3333` on the VM's IP:
 
     - Navigate to `VPC network > Firewall`
@@ -84,7 +88,7 @@ For authentication, we will use our personal account since we are running terraf
 
 1. Install the [GCP CLI](https://cloud.google.com/sdk/docs/install#linux), test it is installed with `gcloud --help`
 2. Authenticate with `gcloud init`
-3. To allow terraform to log in, we will need to acquire new user credientials using `gcloud auth application-default login`. Note where the credential JSON file gets saved. This will look something like:
+3. To allow terraform to log in, we will need to acquire new user credientials using `gcloud auth application-default login`. Note where the credential JSON file gets saved (e.g. `.../.config/gcloud/application_default_credentials.json`). This JSON will look something like:
 
     ```json
     {
@@ -99,14 +103,26 @@ For authentication, we will use our personal account since we are running terraf
     ```
 
 > [!NOTE]
-> Customize the properties of VM inside the [variables.tf](terraform/variables.tf).
+> Customize the properties of VM inside the [variables.tf](terraform/variables.tf) or via CLI commands.
 
 #### Create VM and Firewall Rules
 
 1. Navigate to the [terraform folder](terraform) and initize terraform state with `terraform init`
-2. Validate the terraform configs with `terraform plan`
-3. Apply terraform config using `terraform apply  -var credential_file=<path to credential json> -var project=<YOUR PROJECT NAME>`
+2. Validate the terraform configs with:
+    ```bash
+    terraform plan \
+    var credential_file=<path to credential json>
+    ```
+3. Apply terraform config using:
+    ```bash
+    terraform apply  \
+    -var credential_file=<path to credential json> \
+    -var project=<gcp project name> \
+    -var username=<google username>
+    ```
 
+> [!NOTE]
+> While the VM may be started, the start up script (which installs docker) will take a minute or two to complete.
 
 ## Connecting with SSH
 
@@ -114,15 +130,12 @@ Upon start up, the server should show up in the [VM Instances](https://console.c
 
 - Get the external IP of the sever from the [VM dashboard](https://console.cloud.google.com/compute/instances)
 - Connect to the running VM using `ssh  -i ~/.ssh/gcp <username>@<external ip-address>`
-
-## Installing Docker
-
-The HK severs will be launched using docker, so first [install docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository) on the VM.
-
-- Copy the contents of `install_docker.sh` into a script on the VM and run it.
-- Alternatively, assuming your ssh key is called `gcp` use the `./move_files.sh <username> <external ip>` helper script.
-- Once installed,lLog out and back of SSH to be added to the [docker user group](https://docs.docker.com/engine/install/linux-postinstall/), use `id -Gn` to see what you are added to.
-- Check current running containers with `docker ps`
+- Once logged in use `id -Gn` to see what you are added to the [docker user group](https://docs.docker.com/engine/install/linux-postinstall/)
+    - If you so not see "docker" run `sudo usermod -aG docker $USER`
+    - Relog into the VM
+- Check docker is installed fine with `docker ps`, which should show no containers running
+    - If docker is not installed, the start up script failed. Try running the commands in `install_docker.sh` manually
+    - Can view start up script issues in `/var/log/syslog` if you want to debug. The start up could still be running.
 
 ## Running Servers
 
