@@ -7,7 +7,7 @@ Based on analysis at the time, a micro VM appears to be the best solution for HK
 
 > [!CAUTION]
 > The suggested instances (lowest compute), is part of the [free tier](https://cloud.google.com/free/docs/free-cloud-features#free-tier-usage-limits) of google cloud at time of writing.
-> Always confirm and see [pricing details](https://cloud.google.com/compute/all-pricing) for more information.
+> Always confirm and see [pricing details](https://cloud.google.com/compute/all-pricing) for more information. Setting a billing alert at 10.00 is a great way to protect yourself.
 
 > [!NOTE]
 > The commands here are linux centric. Personally I am using WSL2 on windows, adjust accordingly for other OS.
