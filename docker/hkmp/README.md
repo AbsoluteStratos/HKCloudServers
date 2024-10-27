@@ -123,7 +123,7 @@ docker build -t hkmp:latest .
 ```
 
 > [!CAUTION]
-> If you are building on a windows machine, make sure LF EOL is selecting / set for the `hkmp.sh` file. This can cause [issues](https://unix.stackexchange.com/questions/27054/bin-bash-no-such-file-or-directory) other wise.
+> If you are building on a windows machine, make sure LF EOL is selecting / set for the `hkmp.sh` file. This can cause [issues](https://unix.stackexchange.com/questions/27054/bin-bash-no-such-file-or-directory) other wise, use `dos2unix`.
 
 ## References
 
