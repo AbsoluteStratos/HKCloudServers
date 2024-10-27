@@ -17,10 +17,15 @@ Taking Hollow Knight to cloud compute.
 - [Microsoft Azure](azure)
 
 > [!TIP]
-> If you do not want to use the CSPs listed or want to host these servers on your own stack, check out the server containers below!
+> Which CSP should I choose?
+> - GCP - The best free plan that presently has no time limit
+> - AWS - Easier to set up than GCP. Free plan has better resources but has limited time offering
+> - Azure - Best web UI / user experience, but free offering is limited and poor region options
 
 > [!TIP]
-> At time of writting, GCP seems to be the best offer since they provide a free service with no limit at the moment although AWS has slightly easier steps.
+> If you do not want to use the CSPs listed or want to host these servers on your own stack, check out the server containers below!
+
+
 
 ## Supported Servers
 
