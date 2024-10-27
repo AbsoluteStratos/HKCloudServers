@@ -118,7 +118,7 @@ These docs will use the AWS CLI's config file to authenticate, you only need to 
     ```bash
     terraform apply
     ```
-4. Done!
+4. If terraform completes successfully, the machines public IP will be printed
 
 > [!NOTE]
 > Customize the properties of VM inside the [variables.tf](terraform/variables.tf) or via CLI commands.

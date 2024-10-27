@@ -55,7 +55,7 @@ Terraform is the suggested method if you are looking for reproducability.
         - Select `standard` network teir. Either select an existing or reserve a static IP like `hollowknight-server`
         - Under Network tags add `hk-server`
     - Advanced
-        - Add startup script with the contents of `install_docker.sh`
+        - Add startup script with the contents of `terraform/install_docker.sh`
 
     > If it is planned to connect a domain to this IP it may be beneficial to reserve a [static IP](https://console.cloud.google.com/networking/addresses/list) that can be used between VMs. DNS records take a while to update so having a fixed IP for GoDaddy to point to is useful. However, be aware that Google [charges more](https://cloud.google.com/vpc/network-pricing#ipaddress) for IPs that are static but not in use.
 
@@ -90,7 +90,7 @@ For authentication, we will use our personal account since we are running terraf
 
 1. Install the [GCP CLI](https://cloud.google.com/sdk/docs/install#linux), test it is installed with `gcloud --help`
 2. Authenticate with `gcloud init`
-3. To allow terraform to log in, we will need to acquire new user credientials using `gcloud auth application-default login`. Note where the credential JSON file gets saved (e.g. `.../.config/gcloud/application_default_credentials.json`). This JSON will look something like:
+3. To allow terraform to log in, we will need to acquire new user credientials using `gcloud auth application-default login`. Note where the credential JSON file gets saved (e.g. `~/.config/gcloud/application_default_credentials.json`). This JSON will look something like:
 
     ```json
     {
@@ -110,7 +110,7 @@ For authentication, we will use our personal account since we are running terraf
 2. Validate the terraform configs with:
     ```bash
     terraform plan \
-    var credential_file=<path to credential json>
+    -var credential_file=<path to credential json>
     ```
 3. Apply terraform config using:
     ```bash
@@ -119,7 +119,7 @@ For authentication, we will use our personal account since we are running terraf
     -var project=<gcp project name> \
     -var username=<google username>
     ```
-4. Done!
+4. If terraform completes successfully, the machines public IP will be printed
 
 > [!NOTE]
 > Customize the properties of VM inside the [variables.tf](terraform/variables.tf) or via CLI commands.
@@ -137,7 +137,7 @@ Upon start up, the server should show up in the [VM Instances](https://console.c
     - If you so not see "docker" run `sudo usermod -aG docker $USER`
     - Relog into the VM
 - Check docker is installed fine with `docker ps`, which should show no containers running
-    - If docker is not installed, the start up script failed. Try running the commands in `install_docker.sh` manually
+    - If docker is not installed, the start up script failed. Try running the commands in `terraform/install_docker.sh` manually
     - Can view start up script issues in `/var/log/syslog` if you want to debug. The start up could still be running.
 
 ## Running Servers
