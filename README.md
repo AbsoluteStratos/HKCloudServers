@@ -12,7 +12,7 @@ Taking Hollow Knight to cloud compute.
 ## Supported CSPs
 
 - [Google Cloud Platform](gcp)
-- [Amazon Web Sevices](aws)
+- [Amazon Web Services](aws)
 
 > [!TIP]
 > If you do not want to use the CSPs listed or want to host these servers on your own stack, check out the server containers below!
