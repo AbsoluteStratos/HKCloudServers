@@ -1,9 +1,7 @@
 # Amazon Web Services (AWS)
 
 The following instructions only detail how to set up a Ubuntu VM on AWS EC2.
-EC2 seems to be the best option right now on AWS, it has
-Cloud run function are not good for stateful continuous networking, K8 is more expensive and offers no continuous free offering.
-Based on analysis at the time, a micro VM appears to be the best solution for HK Server hosting.
+EC2 seems to be the best option right now on AWS from my knowledge at the time of writing with a 12 month free tier program.
 
 > [!CAUTION]
 > The suggested instances (lowest compute), is part of the [free tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all) that lasts 12 months on AWS.
@@ -20,7 +18,7 @@ Based on analysis at the time, a micro VM appears to be the best solution for HK
 
     - Navigate to EC2 from the AWS console
     - One the left go `Network & Security > Key Pairs` and create a key pair
-    - Name it `hkaws`, select RAS and `.pem`
+    - Name it `hkaws`, select RSA and `.pem`
     - Create key pair, which will download a `.pem` file to your machine.
     - On WSL2 its recommended moving this into WSL's `.ssh` folder, run `chmod -R 700 ~/.ssh/hkaws.pem`
     - If you wish to use another SSH client like PuTTY, the [instructions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-from-windows.html) follow a similar process

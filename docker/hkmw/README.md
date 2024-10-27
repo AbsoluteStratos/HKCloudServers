@@ -94,6 +94,9 @@ To build your own docker container, use the following:
 docker build -t hkmw:latest .
 ```
 
+> [!CAUTION]
+> If you are building on a windows machine, make sure LF EOL is selecting / set for the `hkmw.sh` file
+
 ### Building the Server Files
 
 Unfortunately, the developers do not ship a server build on their Github release.

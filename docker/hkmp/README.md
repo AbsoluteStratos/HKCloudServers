@@ -122,6 +122,9 @@ To build your own docker container, use the following:
 docker build -t hkmp:latest .
 ```
 
+> [!CAUTION]
+> If you are building on a windows machine, make sure LF EOL is selecting / set for the `hkmp.sh` file. This can cause [issues](https://unix.stackexchange.com/questions/27054/bin-bash-no-such-file-or-directory) other wise.
+
 ## References
 
 Credit to HKMP and HKMP Docker repos:
