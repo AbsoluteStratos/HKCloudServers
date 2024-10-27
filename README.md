@@ -52,7 +52,7 @@ But some advantages that could be of interest include:
 - No need for third party programs to create some LAN network
 - Server host is now cloud platform, which is secure and reliable
 - Play with as many people as you want
-- Hosting a HK server in the cloud for a weekend will at most cost few dollars. No extended subscription model, use it when you need it
+- No extended subscription model like game server services, use it when you need it
 
 ## Support
 
