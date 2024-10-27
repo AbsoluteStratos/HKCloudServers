@@ -86,7 +86,7 @@ docker run --rm -it -p 2222:2222/udp -v ~/hkmp/:/home/hkmp/ --name hkmp absolute
 Once inside the container, use the `hkmp` command to install plug-ins automatically:
 
 - `hkmp plugin-pouch` - Built in install for [HKMP.Pouch](https://github.com/PrashantMohta/HkmpPouch)
-- `` - Built in install for [HKMP.Healthdisplay](https://github.com/TheMulhima/HKMP.HealthDisplay) 
+- `hkmp plugin-health` - Built in install for [HKMP.Healthdisplay](https://github.com/TheMulhima/HKMP.HealthDisplay) 
 - `hkmp plugin-trail` - Built in install for [HKMP.PlayerTrail](https://github.com/TheMathGeek314/PlayerTrail)
 - Any non supported one with `hkmp plugin <Author> <Repo> <Plugin Release ZIP name>`
 - Or manually place the files in the mounted folder (e.g. `~/hkmp/`) on you machine.
