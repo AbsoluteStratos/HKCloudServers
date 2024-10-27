@@ -25,4 +25,4 @@ RUN echo 'alias hkmp="/opt/hkmp/hkmp.sh"' >> ~/.bashrc
 
 WORKDIR /home/hkmp
 SHELL ["/bin/bash"]
-CMD ["/opt/hkmp/hkmp.sh" "start"]
+CMD ["/opt/hkmp/hkmp.sh", "start"]

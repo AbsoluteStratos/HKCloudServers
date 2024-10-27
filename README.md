@@ -8,17 +8,24 @@ Taking Hollow Knight to cloud compute.
 > Cloud compute costs real world money. The tutorials here try to use free tiers that can essentially be ran 24/7 at no cost.
 > However, sloppy administration of compute resources can and will lead to real world charges. Thar be dragons.
 
+![Hollow Knight Cloud Servers Schematic](HKCloudServerDiagram.jpg)
 
 ## Supported CSPs
 
 - [Google Cloud Platform](gcp)
 - [Amazon Web Services](aws)
+- [Microsoft Azure](azure)
+
+> [!TIP]
+> Which CSP should I choose?
+> - GCP - The best free plan that presently has no time limit
+> - AWS - Easier to set up than GCP. Free plan has better resources but limited time offering
+> - Azure - Best web UI / user experience, but free offering is limited and poor region options
 
 > [!TIP]
 > If you do not want to use the CSPs listed or want to host these servers on your own stack, check out the server containers below!
 
-> [!TIP]
-> At time of writting, GCP seems to be the best offer since they provide a free service with no limit at the moment although AWS has slightly easier steps.
+
 
 ## Supported Servers
 
@@ -45,7 +52,7 @@ But some advantages that could be of interest include:
 - No need for third party programs to create some LAN network
 - Server host is now cloud platform, which is secure and reliable
 - Play with as many people as you want
-- Hosting a HK server in the cloud for a weekend will at most cost few dollars. No extended subscription model, use it when you need it
+- No extended subscription model like game server services, use it when you need it
 
 ## Support
 
