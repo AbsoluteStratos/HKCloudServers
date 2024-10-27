@@ -7,7 +7,7 @@ Based on analysis at the time, a micro VM appears to be the best solution for HK
 
 > [!CAUTION]
 > The suggested instances (lowest compute), is part of the [free tier](https://cloud.google.com/free/docs/free-cloud-features#free-tier-usage-limits) of google cloud at time of writing.
-> Always confirm and see [pricing details](https://cloud.google.com/compute/all-pricing) for more information.
+> Always confirm and see [pricing details](https://cloud.google.com/compute/all-pricing) for more information. Setting a billing alert at 10.00 is a great way to protect yourself.
 
 > [!NOTE]
 > The commands here are linux centric. Personally I am using WSL2 on windows, adjust accordingly for other OS.
@@ -21,7 +21,7 @@ Based on analysis at the time, a micro VM appears to be the best solution for HK
 3. Add ssh key to GCP for logging in, must do this before starting the VM
 
     - Generate a new ssh key with the user name being your google user name. E.g. `ssh-keygen -t rsa -b 4096 -C <google username>`
-    - When asked where to save this file, select somewhere in your `.ssh` folder. E.g. `~/.ssh/gcp.pub`
+    - When asked where to save this file, select somewhere in your `.ssh` folder. E.g. `~/.ssh/gcp`
     - Get the local machine public key with `cat ~/.ssh/gcp.pub`
     - First registry your public ssh key with Google Cloud Project, under `compute engine > settings > metadata` which will have [ssh keys tab](https://console.cloud.google.com/compute/metadata)
     - Add the text as SSH key and press Save
@@ -55,11 +55,13 @@ Terraform is the suggested method if you are looking for reproducability.
         - Select `standard` network teir. Either select an existing or reserve a static IP like `hollowknight-server`
         - Under Network tags add `hk-server`
     - Advanced
-        - Add startup script with the contents of `install_docker.sh`
+        - Add startup script with the contents of `terraform/install_docker.sh`
 
     > If it is planned to connect a domain to this IP it may be beneficial to reserve a [static IP](https://console.cloud.google.com/networking/addresses/list) that can be used between VMs. DNS records take a while to update so having a fixed IP for GoDaddy to point to is useful. However, be aware that Google [charges more](https://cloud.google.com/vpc/network-pricing#ipaddress) for IPs that are static but not in use.
 
-3. Next create a firewall exceptions for both HKMP and HKMW.
+3. After launching, the instance should be visible under the [VM Instances](https://console.cloud.google.com/compute/instances?onCreate=true).
+
+4. Next create a firewall exceptions for both HKMP and HKMW.
 Assuming that the default ports are being used, forward `2222` and `3333` on the VM's IP:
 
     - Navigate to `VPC network > Firewall`
@@ -84,11 +86,11 @@ Additionally, it ensures that everything is torn down correctly once you're done
 #### Terraform AuthN
 
 Terraform will need to interact with GCP APIs, so we will need to have a valid account for it to use.
-For authentication, we will use our personal account since we are running terraform on our local machine. [Reference](https://cloud.google.com/docs/terraform/authentication)
+For authentication, we will use our personal account since we are running terraform on our local machine. [Reference](https://cloud.google.com/docs/terraform/authentication), you only need to do this once.
 
 1. Install the [GCP CLI](https://cloud.google.com/sdk/docs/install#linux), test it is installed with `gcloud --help`
 2. Authenticate with `gcloud init`
-3. To allow terraform to log in, we will need to acquire new user credientials using `gcloud auth application-default login`. Note where the credential JSON file gets saved (e.g. `.../.config/gcloud/application_default_credentials.json`). This JSON will look something like:
+3. To allow terraform to log in, we will need to acquire new user credientials using `gcloud auth application-default login`. Note where the credential JSON file gets saved (e.g. `~/.config/gcloud/application_default_credentials.json`). This JSON will look something like:
 
     ```json
     {
@@ -102,16 +104,13 @@ For authentication, we will use our personal account since we are running terraf
     }
     ```
 
-> [!NOTE]
-> Customize the properties of VM inside the [variables.tf](terraform/variables.tf) or via CLI commands.
-
-#### Create VM and Firewall Rules
+#### Create Infrastructure
 
 1. Navigate to the [terraform folder](terraform) and initize terraform state with `terraform init`
 2. Validate the terraform configs with:
     ```bash
     terraform plan \
-    var credential_file=<path to credential json>
+    -var credential_file=<path to credential json>
     ```
 3. Apply terraform config using:
     ```bash
@@ -120,6 +119,10 @@ For authentication, we will use our personal account since we are running terraf
     -var project=<gcp project name> \
     -var username=<google username>
     ```
+4. If terraform completes successfully, the machines public IP will be printed
+
+> [!NOTE]
+> Customize the properties of VM inside the [variables.tf](terraform/variables.tf) or via CLI commands.
 
 > [!NOTE]
 > While the VM may be started, the start up script (which installs docker) will take a minute or two to complete.
@@ -134,7 +137,7 @@ Upon start up, the server should show up in the [VM Instances](https://console.c
     - If you so not see "docker" run `sudo usermod -aG docker $USER`
     - Relog into the VM
 - Check docker is installed fine with `docker ps`, which should show no containers running
-    - If docker is not installed, the start up script failed. Try running the commands in `install_docker.sh` manually
+    - If docker is not installed, the start up script failed. Try running the commands in `terraform/install_docker.sh` manually
     - Can view start up script issues in `/var/log/syslog` if you want to debug. The start up could still be running.
 
 ## Running Servers

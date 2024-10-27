@@ -20,6 +20,7 @@ RUN curl -o HKMPServer.zip -sOL https://github.com/AbsoluteStratos/HKCloudServer
 RUN unzip -o HKMPServer.zip
 
 COPY hkmp.sh hkmp.sh
+RUN chmod +x /opt/hkmp/hkmp.sh
 RUN echo 'alias hkmp="/opt/hkmp/hkmp.sh"' >> ~/.bashrc
 
 WORKDIR /home/hkmp

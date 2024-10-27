@@ -42,26 +42,15 @@ resource "google_compute_instance" "hollow_knight_vm" {
     provisioning_model  = "STANDARD"
   }
 
-  # Make sure this has unix EoL characters, windows will cause error
-  metadata_startup_script = <<EOF
-      sudo apt-get update
-      sudo apt-get install -y ca-certificates curl
-      sudo install -m 0755 -d /etc/apt/keyrings
-      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-      sudo chmod a+r /etc/apt/keyrings/docker.asc
-      echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
-      https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-      sudo apt-get update
-      sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-      echo "Adding docker group to ${var.username}"
-      sudo usermod -aG docker ${var.username}
+  metadata_startup_script  = <<EOF
+      ${file("install_docker.sh")}
+      usermod -aG docker ${var.username}
     EOF
 }
 
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall
 resource "google_compute_firewall" "default" {
-  name = "hollowknight-server-port-forward"
+  name = "hk-tf-port-forward"
   # https://console.cloud.google.com/networking/networks/list
   network  = "default"
   priority = 2000

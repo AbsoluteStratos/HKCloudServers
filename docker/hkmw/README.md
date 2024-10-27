@@ -30,7 +30,7 @@ The following sections discuss various deployment options and more advanced usag
 
 ### Configuring Running Server
 
-As the server host, you may want to run some of [hkmw commands](https://github.com/Extremelyd1/hkmw?tab=readme-ov-file#usage) as admin.
+As the server host, you may want to run some of hkmw commands as admin or watch the sever logs.
 Assuming your server is already running using the command in the quick start section, re-attach your console to the running container:
 
 ```bash

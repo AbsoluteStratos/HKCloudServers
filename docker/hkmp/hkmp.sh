@@ -70,10 +70,10 @@ else
 		"plugin" )
 			plugin $2 $3 $4 $5;;
 		"plugin-health" )
-			plugin PrashantMohta HkmpPouch HkmpPouch.zip v1.0.0 # Force 1.0.0 here because Modlinks not updated
+			plugin PrashantMohta HkmpPouch HkmpPouch.zip v2.0.0 # Force 1.0.0 here because Modlinks not updated
 			plugin TheMulhima HKMP.HealthDisplay HKMP_HealthDisplay.zip;;
 		"plugin-pouch" )
-			plugin PrashantMohta HkmpPouch HkmpPouch.zip v1.0.0;; # Force 1.0.0 here because Modlinks not updated
+			plugin PrashantMohta HkmpPouch HkmpPouch.zip v2.0.0;; # Force 1.0.0 here because Modlinks not updated
 		"plugin-trail" )
 			plugin TheMathGeek314 PlayerTrail PlayerTrail.zip;;
 		"watch" )

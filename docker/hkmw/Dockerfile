@@ -20,6 +20,7 @@ RUN curl -o HKMWServer.zip -sOL https://github.com/AbsoluteStratos/HKCloudServer
 RUN unzip -o HKMWServer.zip
 
 COPY hkmw.sh hkmw.sh
+RUN chmod +x /opt/hkmw/hkmw.sh
 RUN echo 'alias hkmw="/opt/hkmw/hkmw.sh"' >> ~/.bashrc
 
 WORKDIR /home/hkmw
