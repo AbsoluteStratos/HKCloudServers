@@ -19,7 +19,7 @@ Taking Hollow Knight to cloud compute.
 > [!TIP]
 > Which CSP should I choose?
 > - GCP - The best free plan that presently has no time limit
-> - AWS - Easier to set up than GCP. Free plan has better resources but has limited time offering
+> - AWS - Easier to set up than GCP. Free plan has better resources but limited time offering
 > - Azure - Best web UI / user experience, but free offering is limited and poor region options
 
 > [!TIP]
