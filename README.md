@@ -18,7 +18,7 @@ Taking Hollow Knight to cloud compute.
 > If you do not want to use the CSPs listed or want to host these servers on your own stack, check out the server containers below!
 
 > [!TIP]
-> At time of writting, GCP seems to be the best offer since they provide a free service with no limit at the moment.
+> At time of writting, GCP seems to be the best offer since they provide a free service with no limit at the moment although AWS has slightly easier steps.
 
 ## Supported Servers
 

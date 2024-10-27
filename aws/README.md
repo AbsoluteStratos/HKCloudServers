@@ -75,8 +75,53 @@ Terraform is the suggested method if you are looking for reproducability.
 
 ### Terraform
 
-Coming Soon~
+Terraform is infra by code.
+It is by far the best way to get a reproducable VM up and running as easy as possible.
+Additionally, it ensures that everything is torn down correctly once you're done playing.
+[Installing terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) is easy on all platforms.
 
+#### Terraform AuthN
+
+Terraform will need to interact with AWS APIs to create the VM, thus credentials must be provided to terraform to authenticate with the AWS servers.
+Forcunately there are [several](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration) fairly simple methods that can be used.
+These docs will use the AWS CLI's config file to authenticate, you only need to do this once.
+
+1. First create [new access keys](https://docs.aws.amazon.com/keyspaces/latest/devguide/create.keypair.html) to use
+    - Go to [IAM Dashboard](https://us-east-1.console.aws.amazon.com/iam/home#/home) then "Users > Create New User"
+        - Name: `aws-ec2-admin-hk`
+        - Permissions options: Select "Attach policies directly" and then fine `AmazonEC2FullAccess`
+        - Create User
+    - Back on the Users page select the `aws-ec2-admin-hk` profile
+    - Navigate to "Security Credentials" and under "Access Keys" create a new acess key
+        - Use case: Local Code
+        - Description: Hollow Knight Terraform
+    - Copy the "Access key" and "Secret access key" creditials (and keep them safe)
+
+2. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), test it is installed with `aws --version`
+3. Use the AWS CLI to create a config for you using `aws configure --profile hollowknight`
+    - AWS Access Key ID: Use the IAM Access key created
+    - AWS Secret Access Key: Use the IAM secret access key created
+    - Region: Enter in the compute region to use (e.g. `us-east-1`)
+    - Ouput Format: json
+4. This will create a `~/.aws/config` and `~/.aws/credentials` files that terraform should be able to use.
+
+> You can always use other authentication methods and modify the [providers.tf](terraform/providers.tf) file.
+
+#### Create Infrastructure
+
+1. Navigate to the [terraform folder](terraform) and initize terraform state with `terraform init`
+2. Validate the terraform configs with:
+    ```bash
+    terraform plan
+    ```
+3. Apply terraform config using:
+    ```bash
+    terraform apply
+    ```
+4. Done!
+
+> [!NOTE]
+> Customize the properties of VM inside the [variables.tf](terraform/variables.tf) or via CLI commands.
 
 ## Connecting with SSH
 

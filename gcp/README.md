@@ -86,7 +86,7 @@ Additionally, it ensures that everything is torn down correctly once you're done
 #### Terraform AuthN
 
 Terraform will need to interact with GCP APIs, so we will need to have a valid account for it to use.
-For authentication, we will use our personal account since we are running terraform on our local machine. [Reference](https://cloud.google.com/docs/terraform/authentication)
+For authentication, we will use our personal account since we are running terraform on our local machine. [Reference](https://cloud.google.com/docs/terraform/authentication), you only need to do this once.
 
 1. Install the [GCP CLI](https://cloud.google.com/sdk/docs/install#linux), test it is installed with `gcloud --help`
 2. Authenticate with `gcloud init`
@@ -104,10 +104,7 @@ For authentication, we will use our personal account since we are running terraf
     }
     ```
 
-> [!NOTE]
-> Customize the properties of VM inside the [variables.tf](terraform/variables.tf) or via CLI commands.
-
-#### Create VM and Firewall Rules
+#### Create Infrastructure
 
 1. Navigate to the [terraform folder](terraform) and initize terraform state with `terraform init`
 2. Validate the terraform configs with:
@@ -122,6 +119,10 @@ For authentication, we will use our personal account since we are running terraf
     -var project=<gcp project name> \
     -var username=<google username>
     ```
+4. Done!
+
+> [!NOTE]
+> Customize the properties of VM inside the [variables.tf](terraform/variables.tf) or via CLI commands.
 
 > [!NOTE]
 > While the VM may be started, the start up script (which installs docker) will take a minute or two to complete.
