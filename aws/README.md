@@ -145,7 +145,7 @@ Refer to the respective server Readme for what you want to run under the docker 
 
 ## Clean Up
 
-### Google Cloud UI
+### AWS Web UI
 
 To clean up the VM, simply select `Instance State > Terminate Instance` on the [AWS EC2 instances](https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#Instances:) page.
 You can also go delete your security group as well if you want to be thorough.
