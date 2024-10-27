@@ -21,7 +21,7 @@ Based on analysis at the time, a micro VM appears to be the best solution for HK
 3. Add ssh key to GCP for logging in, must do this before starting the VM
 
     - Generate a new ssh key with the user name being your google user name. E.g. `ssh-keygen -t rsa -b 4096 -C <google username>`
-    - When asked where to save this file, select somewhere in your `.ssh` folder. E.g. `~/.ssh/gcp.pub`
+    - When asked where to save this file, select somewhere in your `.ssh` folder. E.g. `~/.ssh/gcp`
     - Get the local machine public key with `cat ~/.ssh/gcp.pub`
     - First registry your public ssh key with Google Cloud Project, under `compute engine > settings > metadata` which will have [ssh keys tab](https://console.cloud.google.com/compute/metadata)
     - Add the text as SSH key and press Save
@@ -59,7 +59,9 @@ Terraform is the suggested method if you are looking for reproducability.
 
     > If it is planned to connect a domain to this IP it may be beneficial to reserve a [static IP](https://console.cloud.google.com/networking/addresses/list) that can be used between VMs. DNS records take a while to update so having a fixed IP for GoDaddy to point to is useful. However, be aware that Google [charges more](https://cloud.google.com/vpc/network-pricing#ipaddress) for IPs that are static but not in use.
 
-3. Next create a firewall exceptions for both HKMP and HKMW.
+3. After launching, the instance should be visible under the [VM Instances](https://console.cloud.google.com/compute/instances?onCreate=true).
+
+4. Next create a firewall exceptions for both HKMP and HKMW.
 Assuming that the default ports are being used, forward `2222` and `3333` on the VM's IP:
 
     - Navigate to `VPC network > Firewall`
