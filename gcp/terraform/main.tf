@@ -15,7 +15,7 @@ resource "google_compute_instance" "hollow_knight_vm" {
     initialize_params {
       image = "projects/ubuntu-os-cloud/global/images/ubuntu-2204-jammy-v20240904"
       size  = 10
-      type  = "pd-balanced"
+      type  = "pd-standard"
     }
 
     mode = "READ_WRITE"
