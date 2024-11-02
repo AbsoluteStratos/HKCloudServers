@@ -5,7 +5,7 @@
 Taking Hollow Knight to cloud compute.
 
 > [!CAUTION]
-> Cloud compute costs real world money. The tutorials here try to use free tiers that can essentially be ran 24/7 at no cost.
+> Cloud compute costs real world money. The tutorials here try to use free tiers that can essentially be ran 24/7 for typically just a few bucks a month.
 > However, sloppy administration of compute resources can and will lead to real world charges. Thar be dragons.
 
 ![Hollow Knight Cloud Servers Schematic](HKCloudServerDiagram.jpg)
