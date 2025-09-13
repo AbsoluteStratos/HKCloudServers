@@ -47,7 +47,7 @@ Terraform is the suggested method if you are looking for reproducability.
         - General Purpose > E2
         - Preset: e2-micro (0.25 vCPU and 1GB Memory)
     - OS and Storage
-        - Operatorating System: Ubuntu 22.04 x86
+        - Operatorating System: Ubuntu 24.04 LTS Minimal
         - Storage Size 10Gb
     - Networking
         - Allow HTTP and HTTPS traffic
