@@ -83,3 +83,6 @@ Since we have mounted the server, it will save the game state in the `~/hkmp` fo
 A good tip when the instance is running fine, click the VM, then create a machine image up top.
 This will allow you to duplicate the VM onto different machines in different locations as needed.
 https://www.gcping.com/ is good to figure out which centers have lower ping.
+
+[Skins](https://docs.google.com/document/d/1qKfOtOXpYormusD05I700P8d79E74R1bTb3MP4vum-E/edit?tab=t.0) are still client side.
+See skin [docs](https://geroyuni.notion.site/hkmp-skins).
