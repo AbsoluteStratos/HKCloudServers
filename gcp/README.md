@@ -59,6 +59,10 @@ Terraform is the suggested method if you are looking for reproducability.
 
     > If it is planned to connect a domain to this IP it may be beneficial to reserve a [static IP](https://console.cloud.google.com/networking/addresses/list) that can be used between VMs. DNS records take a while to update so having a fixed IP for GoDaddy to point to is useful. However, be aware that Google [charges more](https://cloud.google.com/vpc/network-pricing#ipaddress) for IPs that are static but not in use.
 
+    > [!CAUTION]
+    > Make sure an Ubuntu image is actually selected here. GCP defaults new instances to Debian, and `install_docker.sh` adds the *Ubuntu* Docker repository, so on Debian `apt-get update` fails with a `404 Not Found` on the release file and every `docker-ce` package then has "no installation candidate".
+    > If you would rather stay on Debian, swap `linux/ubuntu` for `linux/debian` in both the key and repository URLs in the script. Docker publishes a Debian repository for the same codenames.
+
 3. After launching, the instance should be visible under the [VM Instances](https://console.cloud.google.com/compute/instances?onCreate=true).
 
 4. Next create a firewall exceptions for both HKMP and HKMW.
@@ -137,7 +141,15 @@ Upon start up, the server should show up in the [VM Instances](https://console.c
     - If you so not see "docker" run `sudo usermod -aG docker $USER`
     - Relog into the VM
 - Check docker is installed fine with `docker ps`, which should show no containers running
-    - If docker is not installed, the start up script failed. Try running the commands in `terraform/install_docker.sh` manually
+    - If docker is not installed, the start up script failed. Run the commands in `terraform/install_docker.sh` manually. The minimal images do not ship an editor, so install one first, then paste the script contents in and run it:
+        ```bash
+        sudo apt-get update
+        sudo apt-get install -y vim
+        vim install_docker.sh
+        chmod +x install_docker.sh
+        ./install_docker.sh
+        ```
+        Remember to relog afterwards so the `docker` group membership applies.
     - Can view start up script issues in `/var/log/syslog` if you want to debug. The start up could still be running.
 
 ## Running Servers
