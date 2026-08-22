@@ -31,6 +31,7 @@ Taking Hollow Knight to cloud compute.
 
 - [Hollow Knight Multiplayer](docker/hkmp)
 - [Hollow Knight Multiworld / ItemSync](docker/hkmw)
+- [Silksong Multiplayer](docker/ssmp)
 
 ## Get Started
 
