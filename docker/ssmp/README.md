@@ -16,7 +16,13 @@ SSMP is a .NET 9 server and Silksong sessions are about as demanding as HKMP 3, 
 
 For the rest follow the same instructions in the GCP section with docker installed.
 
-SSMP defaults to port `26960` over UDP, so when creating the firewall rule described in the [GCP readme](../../gcp/README.md), add `UDP` port `26960` alongside the HKMP and HKMW ports.
+SSMP defaults to port `26960` over UDP, but this guide runs it on `2222` instead.
+That is the same UDP port HKMP uses, so the firewall rule described in the [GCP readme](../../gcp/README.md) already covers it and no new rule is needed.
+
+> [!NOTE]
+> The trade off is that HKMP and SSMP cannot run on the same VM at the same time, since both would want UDP `2222`.
+> If you want both at once, pick a free port for one of them and open it in the firewall.
+> Keep in mind the SSMP client assumes `26960` when given a bare IP, so on any other port players have to type it out explicitly.
 
 ## Download the server files
 
@@ -43,17 +49,19 @@ docker pull mcr.microsoft.com/dotnet/runtime:9.0
 Now lets spin up the container with our mounted files:
 
 ```bash
-docker run --rm -it -p 26960:26960/udp -v ~/ssmp/:/home/ssmp/ mcr.microsoft.com/dotnet/runtime:9.0 bash
+docker run --rm -it -p 2222:2222/udp -v ~/ssmp/:/home/ssmp/ mcr.microsoft.com/dotnet/runtime:9.0 bash
 ```
 
 Inside the container start the SSMP server with:
 
 ```bash
 cd /home/ssmp
-dotnet SSMPServer.dll 26960
+dotnet SSMPServer.dll 2222
 ```
 
-> Invoking `dotnet SSMPServer.dll` avoids relying on the executable bit surviving the unzip. `chmod +x SSMPServer && ./SSMPServer 26960` works equally well.
+The port argument is what overrides SSMP's `26960` default. It is written into `consolesettings.json` on first run, so later starts can omit it.
+
+> Invoking `dotnet SSMPServer.dll` avoids relying on the executable bit surviving the unzip. `chmod +x SSMPServer && ./SSMPServer 2222` works equally well.
 
 Should output something like:
 
@@ -61,7 +69,7 @@ Should output something like:
 [INFO] Server settings did not exist yet, creating new server settings file
 [INFO] Console settings did not exist yet, creating new console settings file
 [INFO] Starting server v0.3.1
-[INFO] Starting NetServer on port 26960
+[INFO] Starting NetServer on port 2222
 ```
 
 This will start the server, you can type SSMP [commands](https://github.com/Extremelyd1/SSMP?tab=readme-ov-file#commands) in this console without the leading slash.
@@ -77,7 +85,7 @@ To detach from the server use Ctrl + p then Ctrl + q, `docker ps` should show it
 Since we have mounted the server, the settings files, whitelist and logs are written to the `~/ssmp` folder:
 
 - `serversettings.json` - the gameplay settings (pvp, teams, damage values, etc.)
-- `consolesettings.json` - the default port used when no port argument is given
+- `consolesettings.json` - the port used when no port argument is given
 - `logs/server.log` - can be tailed from outside the container with `tail -n10 ~/ssmp/logs/server.log`
 
 ## Installing Addons
@@ -140,7 +148,7 @@ Two gameplay caveats worth knowing before committing a save to these:
 Start up Silksong with SSMP installed (it needs the [BepInExPack for Silksong](https://thunderstore.io/c/hollow-knight-silksong/p/BepInEx/BepInExPack_Silksong/)):
 
 - From the main menu choose `Start Multiplayer`.
-- Pick the direct connection option and enter `<external ip>:26960`.
+- Pick the direct connection option and enter `<external ip>:2222`. The port has to be typed out, since the client would otherwise assume `26960`.
 - Select a save file when prompted. This save is local only and does not sync to the server.
 - Chat opens with `y` by default, use `/list` to confirm who is connected.
 
